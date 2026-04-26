@@ -74,7 +74,7 @@ ALYSTER'S PORTFOLIO
 
 <div className="hero-images">
 <div className="profile-frame">
-<img src="/profile.png" className="main-photo"/>
+<img src="./profile.png" className="main-photo"/>
 </div>
 </div>
 
@@ -145,8 +145,8 @@ Learning to Build Real Systems
 
 
 <div className="skills-images">
-<img src="/project2.png" className="wide-photo"/>
-<img src="/project3.png" className="floating-photo"/>
+<img src="./project2.png" className="wide-photo"/>
+<img src="./project3.png" className="floating-photo"/>
 </div>
 
 </section>
@@ -164,7 +164,7 @@ ACHIEVEMENTS
 <div className="project-gallery row g-4">
 
 <div className="project-card col-lg-3 col-md-6 col-sm-12">
-<img src="/project1.png"/>
+<img src="./project1.png"/>
 <h3>Student Information Portal</h3>
 <p>A student directory and activities portal.</p>
 <a
@@ -177,7 +177,7 @@ View GitHub
 
 
 <div className="project-card col-lg-3 col-md-6 col-sm-12">
-<img src="/project2.png"/>
+<img src="./project2.png"/>
 <h3>Student Portal System</h3>
 <p>A university portal for requests and feedback.</p>
 <a
@@ -190,7 +190,7 @@ View GitHub
 
 
 <div className="project-card col-lg-3 col-md-6 col-sm-12">
-<img src="/project3.png"/>
+<img src="./project3.png"/>
 <h3>Event Registration Dashboard</h3>
 <p>A system for managing campus event registrations.</p>
 <a
@@ -203,11 +203,11 @@ View GitHub
 
 
 <div className="project-card col-lg-3 col-md-6 col-sm-12">
-<img src="/project4.png"/>
+<img src="./project4.png"/>
 <h3>Library Book Request System</h3>
 <p>A form system for student book requests.</p>
 <a
-href=" https://ubsitpesimopmarkaaronalyster.github.io/PESIMO_MG_LAB3/"
+href="https://ubsitpesimopmarkaaronalyster.github.io/PESIMO_MG_LAB3/"
 target="_blank"
 >
 View GitHub
