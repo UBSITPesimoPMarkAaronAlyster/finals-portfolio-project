@@ -6,14 +6,15 @@ import './App.css'
 
 function App() {
 
-const path = window.location.hash;
+const path = window.location.pathname;
+const hash = window.location.hash;
 
 return(
 <>
 {
-path === "#admin-login"
+hash === "#admin-login" || path.includes("admin-login")
 ? <AdminLogin/>
-: path === "#admin-dashboard"
+: hash === "#admin-dashboard" || path.includes("admin-dashboard")
 ? <AdminDashboard/>
 : <Portfolio/>
 }
