@@ -17,6 +17,8 @@ const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 const handleSubmit=async(e:React.FormEvent)=>{
 e.preventDefault();
 
+try{
+
 const res=await fetch("http://localhost:5000/admin-login",{
  method:"POST",
  headers:{
@@ -28,10 +30,16 @@ const res=await fetch("http://localhost:5000/admin-login",{
 const data=await res.json();
 
 if(data.success){
+ alert(data.message);
  localStorage.setItem("adminLogin","true");
-window.location.href = "#admin-dashboard";
+ window.location.href="/finals-portfolio-project/admin-dashboard";
 }else{
  alert(data.message);
+}
+
+}catch(error){
+ console.error(error);
+ alert("Error logging in.");
 }
 
 };
@@ -45,7 +53,11 @@ onSubmit={handleSubmit}
 className="admin-login-form card shadow-lg"
 >
 
-<h1>Secret Admin Login</h1>
+<p className="section-label">
+SECRET WEBSITE
+</p>
+
+<h1>Admin Login</h1>
 
 <input
 type="text"

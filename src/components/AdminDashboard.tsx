@@ -1,110 +1,167 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
-interface Contact{
-_id:string;
-employerName:string;
-email:string;
-company:string;
-message:string;
-status:string;
+const AdminDashboard:React.FC = ()=>{
+
+const [contacts,setContacts]=useState<any[]>([]);
+
+useEffect(()=>{
+
+if(localStorage.getItem("adminLogin") !== "true"){
+ window.location.href="/finals-portfolio-project/admin-login";
+}else{
+ loadContacts();
 }
 
-const AdminDashboard:React.FC=()=>{
+},[]);
 
-const [contacts,setContacts]=useState<Contact[]>([]);
 
-const loadContacts=async()=>{
+const loadContacts = async()=>{
 
-const res=await fetch(
-"http://localhost:5000/contacts"
-);
+try{
 
-const data=await res.json();
+const res = await fetch("http://localhost:5000/contacts");
+
+const data = await res.json();
 
 setContacts(data);
 
-};
+}catch(error){
 
-useEffect(()=>{
-loadContacts();
-},[]);
+console.error(error);
+alert("Error loading contacts.");
 
-const deleteMessage=async(id:string)=>{
-
-await fetch(
-`http://localhost:5000/delete/${id}`,
-{
-method:"DELETE"
 }
-);
-
-loadContacts();
 
 };
 
-const markRead=async(id:string)=>{
 
-await fetch(
-`http://localhost:5000/update/${id}`,
-{
-method:"PUT"
+const handleUpdate = async(id:string)=>{
+
+try{
+
+const res = await fetch(`http://localhost:5000/contacts/${id}`,{
+ method:"PUT",
+ headers:{
+  "Content-Type":"application/json"
+ },
+ body:JSON.stringify({
+  status:"Read"
+ })
+});
+
+const data = await res.json();
+
+alert(data.message);
+
+loadContacts();
+
+}catch(error){
+
+console.error(error);
+alert("Error updating message.");
+
 }
-);
+
+};
+
+
+const handleDelete = async(id:string)=>{
+
+const confirmDelete = confirm("Are you sure you want to delete this message?");
+
+if(confirmDelete === false){
+ return;
+}
+
+try{
+
+const res = await fetch(`http://localhost:5000/contacts/${id}`,{
+ method:"DELETE"
+});
+
+const data = await res.json();
+
+alert(data.message);
 
 loadContacts();
 
+}catch(error){
+
+console.error(error);
+alert("Error deleting message.");
+
+}
+
 };
+
+
+const handleLogout = ()=>{
+ localStorage.removeItem("adminLogin");
+ window.location.href="/finals-portfolio-project/admin-login";
+};
+
 
 return(
 
-<div className="container mt-5">
+<div className="dashboard-page">
 
-<h1>Employer Messages Dashboard</h1>
+<div className="dashboard-header">
+
+<div>
+<p className="section-label">
+SECRET WEBSITE
+</p>
+<h1>Admin Dashboard</h1>
+</div>
 
 <button
-className="btn btn-danger mb-4"
-onClick={()=>
-window.location.href="#admin-login"
-}
+onClick={handleLogout}
+className="btn btn-outline-light"
 >
 Logout
 </button>
 
+</div>
+
+<h2>Employer Messages</h2>
+
 {
-contacts.map((item)=>(
+contacts.length===0
+? <p>No messages yet.</p>
 
-<div
-key={item._id}
-className="card p-4 mb-4"
->
+: contacts.map((contact,index)=>(
 
-<h4>{item.employerName}</h4>
+<div key={index} className="message-card">
 
-<p>{item.email}</p>
+<h3>{contact.employerName}</h3>
 
-<p>{item.company}</p>
+<p><b>Email:</b> {contact.email}</p>
 
-<p>{item.message}</p>
+<p><b>Company:</b> {contact.company}</p>
 
-<p>Status: {item.status}</p>
+<p><b>Message:</b> {contact.message}</p>
+
+<p><b>Status:</b> {contact.status}</p>
+
+<p><b>Date:</b> {new Date(contact.date).toLocaleString()}</p>
+
+<div className="dashboard-buttons">
 
 <button
-className="btn btn-warning me-2"
-onClick={()=>
-markRead(item._id)
-}
+onClick={()=>handleUpdate(contact._id)}
+className="btn btn-success"
 >
-Mark Read
+Mark as Read
 </button>
 
 <button
+onClick={()=>handleDelete(contact._id)}
 className="btn btn-danger"
-onClick={()=>
-deleteMessage(item._id)
-}
 >
 Delete
 </button>
+
+</div>
 
 </div>
 
