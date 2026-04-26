@@ -11,9 +11,9 @@ const path = window.location.pathname;
 return(
 <>
 {
-path === "/admin-login"
+path.includes("admin-login")
 ? <AdminLogin/>
-: path === "/admin-dashboard"
+: path.includes("admin-dashboard")
 ? <AdminDashboard/>
 : <Portfolio/>
 }

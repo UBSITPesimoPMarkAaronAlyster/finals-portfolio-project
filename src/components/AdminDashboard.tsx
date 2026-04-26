@@ -7,7 +7,7 @@ const [contacts,setContacts]=useState<any[]>([]);
 useEffect(()=>{
 
 if(localStorage.getItem("adminLogin") !== "true"){
- window.location.href="/admin-login";
+ window.location.href="/finals-portfolio-project/admin-login";
 }else{
  loadContacts();
 }

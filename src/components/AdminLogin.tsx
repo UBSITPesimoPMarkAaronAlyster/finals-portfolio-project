@@ -29,7 +29,7 @@ const data=await res.json();
 
 if(data.success){
  localStorage.setItem("adminLogin","true");
- window.location.href="/admin-dashboard";
+ window.location.href="/finals-portfolio-project/admin-dashboard";
 }else{
  alert(data.message);
 }
