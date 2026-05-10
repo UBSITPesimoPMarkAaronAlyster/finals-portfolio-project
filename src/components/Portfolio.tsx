@@ -1,6 +1,8 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
+const API_URL = "https://finals-portfolio-project.onrender.com";
+
 const Portfolio: React.FC = () => {
   const [formData, setFormData] = useState({
     employerName: "",
@@ -22,7 +24,7 @@ const Portfolio: React.FC = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/contact", {
+      const res = await fetch(`${API_URL}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
