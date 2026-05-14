@@ -44,10 +44,14 @@ const AdminLogin: React.FC = () => {
 
   return (
     <div className="admin-login-page">
-      <form onSubmit={handleSubmit} className="admin-login-form card shadow-lg">
+      <form onSubmit={handleSubmit} className="admin-login-form">
         <p className="section-label">SECRET WEBSITE</p>
 
         <h1>Admin Login</h1>
+
+        <p className="admin-description">
+          Access employer messages and portfolio contacts.
+        </p>
 
         <input
           type="text"
@@ -55,6 +59,7 @@ const AdminLogin: React.FC = () => {
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
+          required
         />
 
         <input
@@ -63,9 +68,10 @@ const AdminLogin: React.FC = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
+          required
         />
 
-        <button type="submit" className="btn btn-outline-light">
+        <button type="submit">
           Login
         </button>
       </form>

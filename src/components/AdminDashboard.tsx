@@ -50,9 +50,11 @@ const AdminDashboard: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    const confirmDelete = confirm("Are you sure you want to delete this message?");
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this message?"
+    );
 
-    if (confirmDelete === false) {
+    if (!confirmDelete) {
       return;
     }
 
@@ -78,58 +80,64 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="dashboard-page">
+    <div className="dashboard-page glass-card">
       <div className="dashboard-header">
         <div>
           <p className="section-label">SECRET WEBSITE</p>
           <h1>Admin Dashboard</h1>
         </div>
 
-        <button onClick={handleLogout} className="btn btn-outline-light">
+        <button onClick={handleLogout}>
           Logout
         </button>
       </div>
 
-      <h2>Employer Messages</h2>
+      <div className="dashboard-subtitle">
+        Employer messages received from your portfolio website.
+      </div>
 
       {contacts.length === 0 ? (
-        <p>No messages yet.</p>
+        <div className="empty-message">
+          No messages yet.
+        </div>
       ) : (
         contacts.map((contact, index) => (
           <div key={index} className="message-card">
-            <h3>{contact.employerName}</h3>
+            <div className="message-top">
+              <h2>{contact.employerName}</h2>
 
-            <p>
-              <b>Email:</b> {contact.email}
-            </p>
+              <span className={contact.status === "Read" ? "status-read" : "status-unread"}>
+                {contact.status}
+              </span>
+            </div>
 
-            <p>
-              <b>Company:</b> {contact.company}
-            </p>
+            <div className="message-info">
+              <p>
+                <strong>Email:</strong> {contact.email}
+              </p>
 
-            <p>
-              <b>Message:</b> {contact.message}
-            </p>
+              <p>
+                <strong>Company:</strong> {contact.company}
+              </p>
 
-            <p>
-              <b>Status:</b> {contact.status}
-            </p>
+              <p>
+                <strong>Date:</strong>{" "}
+                {new Date(contact.date).toLocaleString()}
+              </p>
+            </div>
 
-            <p>
-              <b>Date:</b> {new Date(contact.date).toLocaleString()}
-            </p>
+            <div className="message-body">
+              {contact.message}
+            </div>
 
             <div className="dashboard-buttons">
-              <button
-                onClick={() => handleUpdate(contact._id)}
-                className="btn btn-success"
-              >
+              <button onClick={() => handleUpdate(contact._id)}>
                 Mark as Read
               </button>
 
               <button
                 onClick={() => handleDelete(contact._id)}
-                className="btn btn-danger"
+                className="delete-btn"
               >
                 Delete
               </button>

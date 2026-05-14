@@ -1,25 +1,41 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Portfolio from './components/Portfolio'
-import AdminLogin from './components/AdminLogin'
-import AdminDashboard from './components/AdminDashboard'
-import './App.css'
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="portfolio-page">
+            <Navbar />
+            <main>
+              <Home />
+              <About />
+              <Contact />
+            </main>
 
-const path = window.location.pathname;
+            <footer>
+              <h2>ALYSTER PORTFOLIO</h2>
+              <p>
+                Built with React, TypeScript, Node.js, MongoDB, Render, and
+                EmailJS
+              </p>
+            </footer>
+          </div>
+        }
+      />
 
-return(
-<>
-{
-path.includes("admin-login")
-? <AdminLogin/>
-: path.includes("admin-dashboard")
-? <AdminDashboard/>
-: <Portfolio/>
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/admin-dashboard" element={<AdminDashboard />} />
+    </Routes>
+  );
 }
-</>
-)
 
-}
-
-export default App
+export default App;
